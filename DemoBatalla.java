@@ -6,7 +6,7 @@ public static void main(String [] args){
  String nomb, col;
  int fil, punt;
  boolean est;
-
+ 
  for (int i = 0; i < misNaves.length; i++) {
  System.out.println("Nave " + (i+1));
  System.out.print("Nombre: ");
@@ -105,7 +105,7 @@ return flota[mayor];
 }
 //Método para buscar la primera nave con un nombre que se pidió por teclado
 public static int busquedaLinealNombre(Nave[] flota, String s){
-    
+
 }
 //Método que ordena por número de puntos de menor a mayor
 public static void ordenarPorPuntosBurbuja(Nave[] flota){
