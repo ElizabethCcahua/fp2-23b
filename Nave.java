@@ -10,7 +10,7 @@ nombre = n;
 }
 public void setFila(int f){
 fila = f;
-}
+} 
 public void setColumna(String c){
 columna = c;
 }
