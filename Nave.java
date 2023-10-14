@@ -1,5 +1,5 @@
 public class Nave {
-private String nombre;
+private String nombre; 
 private int fila;
 private String columna;
 private boolean estado;
