@@ -35,6 +35,8 @@ public static void main(String [] args){
  mostrarPorPuntos(misNaves);
  System.out.println("\nNave con mayor número de puntos: " + mostrarMayorPuntos(misNaves));
 //leer un nombre
+String nombre =sc.next();
+
 //mostrar los datos de la nave con dicho nombre, mensaje de “no encontrado” en caso contrario
 int pos=busquedaLinealNombre(misNaves,nombre);
 ordenarPorPuntosBurbuja(misNaves);
@@ -105,7 +107,10 @@ return flota[mayor];
 }
 //Método para buscar la primera nave con un nombre que se pidió por teclado
 public static int busquedaLinealNombre(Nave[] flota, String s){
-
+    for(int i=0;i<flota.length;i++)
+    if(flota[i].equals(s))
+    return i;
+return -1;
 }
 //Método que ordena por número de puntos de menor a mayor
 public static void ordenarPorPuntosBurbuja(Nave[] flota){
