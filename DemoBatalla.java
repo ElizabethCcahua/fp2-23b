@@ -20,7 +20,7 @@ public static void main(String [] args){
  est = sc.nextBoolean();
  System.out.print("Puntos: ");
  punt = sc.nextInt();
- 
+  
  misNaves[i] = new Nave(); //Se crea un objeto Nave y se asigna su referencia a misNaves
 
  misNaves[i].setNombre(nomb);
