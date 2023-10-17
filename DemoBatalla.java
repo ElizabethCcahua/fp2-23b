@@ -7,7 +7,7 @@ public static void main(String [] args){
  String nomb, col;
  int fil, punt;
  boolean est;
- 
+   
  for (int i = 0; i < misNaves.length; i++) {
  System.out.println("Nave " + (i+1));
  System.out.print("Nombre: ");
