@@ -1,15 +1,19 @@
 import java.util.*;
 public class Prac02 {
-
     public static void main(String[] args) {
-        int n = 5; // Número de soldados en cada ejército
-        int campoSize = n; // Tamaño del campo (cuadrado de NxN)
+         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Soldado> ejercitoA = generarEjercito(n);
+        System.out.print("cantidad de soldados: ");
+        int n = scanner.nextInt();
+        System.out.print("Tamaño del campo nxn: ");
+        int campoSize = scanner.nextInt();
+      
+
+        ArrayList<Soldado> ejercitoA =generarEjercito(n);
         ArrayList<Soldado> ejercitoB = generarEjercito(n);
 
-        int[][] campoA = new int[campoSize][campoSize];
-        int[][] campoB = new int[campoSize][campoSize];
+        Soldado[][] campoA = new Soldado[campoSize][campoSize];
+        Soldado[][] campoB = new Soldado[campoSize][campoSize];
 
         ubicarSoldadosAleatoriamente(campoA, ejercitoA);
         ubicarSoldadosAleatoriamente(campoB, ejercitoB);
@@ -23,7 +27,16 @@ public class Prac02 {
         cruzarPosiciones(campoA, campoB);
 
         System.out.println("Campo con los soldados sobrevivientes:");
+        
+        for (int i = 0; i <campoA.length; i++) {
+            for (int j = 0; j < campoA[0].length; j++) {
+                if (campoB[i][j]!=null)
+                    campoA[i][j]=new Soldado(campoB[i][j].getVida());   
+                }
+            }
+            System.out.println();
         imprimirCampo(campoA);
+        
 
         // Calcular el promedio de vida global
         double promedioVida = calcularPromedioVida(ejercitoA, ejercitoB);
@@ -41,7 +54,7 @@ public class Prac02 {
             System.out.println("Empate.");
         }
     }
-public static ArrayList<Soldado> generarEjercito(int nSoldados) {
+public static  ArrayList<Soldado> generarEjercito(int nSoldados) {
     ArrayList<Soldado> ejercito = new ArrayList<>();
     
     for (int i = 0; i < nSoldados; i++) {
@@ -52,24 +65,24 @@ public static ArrayList<Soldado> generarEjercito(int nSoldados) {
     return ejercito;
 }
 
-    public static void ubicarSoldadosAleatoriamente(int[][] campo, ArrayList<Soldado> ejercito) {
+    public static void ubicarSoldadosAleatoriamente(Soldado [][] campo, ArrayList<Soldado> ejercito) {
  Random random = new Random();
 
         for (Soldado soldado : ejercito) {
              int x = random.nextInt(campo.length);
             int y = random.nextInt(campo[0].length);
 
-            if (campo[x][y] == 0) {
-                campo[x][y] = soldado.vida;
+            if (campo[x][y] == null) {
+                campo[x][y] = soldado;
             } else {
                 // Si la posición ya está ocupada, buscar una posición vacía
-                boolean posicionEncontrada = false;
+                boolean posicionOcupada = false;
 
-                for (int i = 0; i < campo.length && !posicionEncontrada; i++) {
-                    for (int j = 0; j < campo[0].length && !posicionEncontrada; j++) {
-                        if (campo[i][j] == 0) {
-                            campo[i][j] = soldado.vida;
-                            posicionEncontrada = true;
+                for (int i = 0; i < campo.length && !posicionOcupada; i++) {
+                    for (int j = 0; j < campo[0].length && !posicionOcupada; j++) {
+                        if (campo[i][j] == null) {
+                            campo[i][j] = soldado;
+                            posicionOcupada = true;
                         }
                     }
                 }
@@ -77,29 +90,32 @@ public static ArrayList<Soldado> generarEjercito(int nSoldados) {
         }
     }
 
-    public static void cruzarPosiciones(int[][] campoA, int[][] campoB) {
+    public static void cruzarPosiciones(Soldado[][] campoA, Soldado[][] campoB) {
         for (int i = 0; i < campoA.length; i++) {
             for (int j = 0; j < campoA[0].length; j++) {
-                if (campoA[i][j] > 0 && campoB[i][j] > 0) {
-                    if (campoA[i][j] > campoB[i][j]) {
-                        campoA[i][j] -= campoB[i][j];
-                        campoB[i][j] = 0;
-                    } else if (campoB[i][j] > campoA[i][j]) {
-                        campoB[i][j] -= campoA[i][j];
-                        campoA[i][j] = 0;
+                if (campoA[i][j] !=null && campoB[i][j] !=null) {
+                    if (campoA[i][j].getVida()> campoB[i][j].getVida()) {
+                        campoA[i][j].setVida(campoA[i][j].getVida()-campoB[i][j].getVida());
+                        campoB[i][j] =  null;
+                    } else if (campoB[i][j].getVida() > campoA[i][j].getVida()) {
+                        campoB[i][j].setVida(campoB[i][j].getVida()-campoA[i][j].getVida());
+                        campoA[i][j] =  null;
                     } else {
-                        campoA[i][j] = 0;
-                        campoB[i][j] = 0;
+                        campoA[i][j] = null;
+                        campoB[i][j] = null;
                     }
                 }
             }
         }
     }
 
-    public static void imprimirCampo(int[][] campo) {
+    public static void imprimirCampo(Soldado[][] campo) {
         for (int i = 0; i < campo.length; i++) {
             for (int j = 0; j < campo[0].length; j++) {
-                System.out.print(campo[i][j] + " ");
+                if(campo[i][j]!=null)
+                System.out.print(campo[i][j].getVida() + " ");
+                else
+                System.out.print("0 ");
             }
             System.out.println();
         }
