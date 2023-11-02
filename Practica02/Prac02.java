@@ -1,5 +1,5 @@
 import java.util.*;
-public class Prac02 { 
+public class Prac02 {  
     public static void main(String[] args) {
          Scanner scanner = new Scanner(System.in);
 
